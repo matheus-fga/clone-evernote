@@ -15,4 +15,22 @@ router.post('/', withAuth, async (req, res) => {
   }
 });
 
+router.get('/:id', withAuth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    let note = await Note.findById(id);
+    if(isOwner(req.user, note))
+      res.status(200).json(note);
+    else {
+      res.status(403).json({ error: "Forbidden: You're not owner of the note" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Error to find a note' });
+  }
+});
+
+const isOwner = (user, note) => {
+  return JSON.stringify(user._id) == JSON.stringify(note.author._id) ? true : false
+}
+
 module.exports = router;
