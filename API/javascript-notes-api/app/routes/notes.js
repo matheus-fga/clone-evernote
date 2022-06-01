@@ -29,6 +29,25 @@ router.get('/:id', withAuth, async (req, res) => {
   }
 });
 
+router.put('/:id', withAuth, async (req, res) => {
+  const { title, body } = req.body;
+  const { id } = req.params;
+
+  try {
+    let noteToUpdate = await Note.findById(id);
+    if(isOwner(req.user, noteToUpdate)) {
+      let note = await Note.findByIdAndUpdate(id,
+        { $set: {title: title, body: body, updated_at: Date.now()}},
+        { upsert: true, 'new': true }
+      );
+      res.status(200).json(note);
+    } else
+      res.status(403).json({ error: "Forbidden: You're not owner of the note" });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
 router.get('/', withAuth, async (req, res) => {
   try {
     let notes = await Note.find({ author: req.user._id })
