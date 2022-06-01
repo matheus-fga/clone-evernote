@@ -1,14 +1,11 @@
 import './App.scss';
-import { Notification, Section } from 'rbx';
+import Header from './components/header';
+import { Fragment } from 'react';
 
 const App = () => (
-  <div className='App'>
-    <Section>
-      <Notification color='success'>
-        JavaScript Notes!
-      </Notification>
-    </Section>
-  </div>
+  <Fragment>
+    <Header/>
+  </Fragment>
 )
 
 export default App;
