@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const Note = require('../models/note');
 const withAuth = require('../middlewares/auth');
+const note = require('../models/note');
 
 router.post('/', withAuth, async (req, res) => {
   const { title, body } = req.body;
@@ -37,14 +38,29 @@ router.put('/:id', withAuth, async (req, res) => {
     let noteToUpdate = await Note.findById(id);
     if(isOwner(req.user, noteToUpdate)) {
       let note = await Note.findByIdAndUpdate(id,
-        { $set: {title: title, body: body, updated_at: Date.now()}},
+        { $set: {title: title, body: body, updated_at: Date.now() }},
         { upsert: true, 'new': true }
       );
       res.status(200).json(note);
     } else
       res.status(403).json({ error: "Forbidden: You're not owner of the note" });
   } catch (error) {
-    res.status(500).json({ error: error });
+    res.status(500).json({ error: 'Error to update a note' });
+  }
+});
+
+router.delete('/:id', withAuth, async(req, res) => {
+  const { id } = req.params;
+
+  try {
+    let noteToDelete = await Note.findById(id);
+    if(isOwner(req.user, noteToDelete)) {
+      noteToDelete.delete();
+      res.status(204).json();
+    } else
+      res.status(403).json({ error: "Forbidden: You're not owner of the note" });
+  } catch (error) {
+    res.status(500).json({ error: 'Error to remove a note' });
   }
 });
 
