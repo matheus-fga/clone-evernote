@@ -2,12 +2,13 @@ import React, { Fragment } from "react";
 import Header from "../../../components/header";
 import { Column, Section, Title, Container, Card } from "rbx";
 import logoImage from "../../../assets/images/logo.png";
+import RegisterForm from "../../../components/forms/register";
 import "../../../styles/auth.scss";
 
 const RegisterScreen = () => (
   <Fragment>
     <Header />
-    <Section size="medium" className="auth">
+    <Section size="small" className="auth">
       <Container>
         <Column.Group centered>
           <Column size={4}>
@@ -30,6 +31,7 @@ const RegisterScreen = () => (
                       </Title>
                     </Column>
                   </Column.Group>
+                  <RegisterForm />
                 </Section>
               </Card.Content>
             </Card>
