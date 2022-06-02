@@ -10,6 +10,7 @@ import {
   Label,
 } from "rbx";
 import { Navigate } from "react-router-dom";
+import UserService from "../../../services/users";
 
 function RegisterForm() {
   const [name, setName] = useState("");
@@ -18,12 +19,27 @@ function RegisterForm() {
   const [redirectToLogin, setRedirectToLogin] = useState(false);
   const [error, setError] = useState(false);
 
+  const HandleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await UserService.register({
+        name: name,
+        email: email,
+        password: password,
+      });
+      setRedirectToLogin(true);
+    } catch (error) {
+      setError(true);
+    }
+  };
+
   if (redirectToLogin) return <Navigate to={"/login"} />;
 
   return (
     <Fragment>
       <Column.Group centered>
-        <form>
+        <form onSubmit={HandleSubmit}>
           <Column size={12}>
             <Field>
               <Label size="small">Name:</Label>
