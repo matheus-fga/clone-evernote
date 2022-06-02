@@ -1,15 +1,7 @@
 import React, { Fragment, useState } from "react";
-import {
-  Button,
-  Field,
-  Control,
-  Input,
-  Column,
-  Section,
-  Help,
-  Label,
-} from "rbx";
+import { Button, Field, Control, Input, Column, Help, Label } from "rbx";
 import { Navigate } from "react-router-dom";
+import UserService from "../../../services/users";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -18,13 +10,27 @@ function LoginForm() {
   const [redirectToNotes, setRedirectToNotes] = useState(false);
   const [error, setError] = useState(false);
 
+  const HandleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      let user = await UserService.login({
+        email: email,
+        password: password,
+      });
+      setRedirectToNotes(true);
+    } catch (error) {
+      setError(true);
+    }
+  };
+
   if (redirectToRegister) return <Navigate to={"/register"} />;
   else if (redirectToNotes) return <Navigate to={"/notes"} />;
 
   return (
     <Fragment>
       <Column.Group centered>
-        <form>
+        <form onSubmit={HandleSubmit}>
           <Column size={12}>
             <Field>
               <Label size="small">Email:</Label>
