@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import Header from "../../../components/header";
+import Header from "../../../components/headers/header";
 import { Column, Section, Title, Container, Card } from "rbx";
 import logoImage from "../../../assets/images/logo.png";
 import RegisterForm from "../../../components/forms/register";
