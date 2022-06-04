@@ -43,6 +43,13 @@ function ListNotes(props) {
                   {Moment(item.created_at).format("DD/MM")}
                 </Tag>
               </Column>
+              <Column size={2}>
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  onClick={() => props.deleteNote(item)}
+                  color="grey"
+                />
+              </Column>
             </Column.Group>
           </List.Item>
         ))}

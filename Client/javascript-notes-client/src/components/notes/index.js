@@ -27,6 +27,11 @@ function Notes(props) {
     fetchNotes();
   };
 
+  const deleteNote = async (note) => {
+    await NotesService.delete(note._id);
+    fetchNotes();
+  };
+
   const selectNote = (id) => {
     const note = notes.find((note) => {
       return note._id == id;
@@ -60,6 +65,7 @@ function Notes(props) {
             selectNote={selectNote}
             current_note={current_note}
             createNote={createNote}
+            deleteNote={deleteNote}
           />
         </Menu>
 
