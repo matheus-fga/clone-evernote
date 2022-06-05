@@ -30,11 +30,14 @@ function ListNotes(props) {
             onClick={() => props.selectNote(item._id)}
             active={item == props.current_note}
           >
-            <Title size={6}>
-              {item.title.replace(/(<([^>]+)>)/gi, "").substring(0, 15)}
-            </Title>
+            <Title size={6}>{`${item.title.substring(0, 15)} ${
+              item.title.length > 15 ? "..." : ""
+            }`}</Title>
             <Title size={6} subtitle spaced={false}>
-              {item.body.replace(/(<([^>]+)>)/gi, "").substring(0, 30)}
+              {`${item.body.replace(/(<([^>]+)>)/gi, "").substring(0, 30)} 
+              ${
+                item.body.replace(/(<([^>]+)>)/gi, "").length > 30 ? "..." : ""
+              }`}
             </Title>
 
             <Column.Group breakpoint="mobile">

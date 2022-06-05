@@ -1,10 +1,24 @@
 import React, { Fragment, useState, useEffect } from "react";
 
-import ReactQuill from "react-quill"; // ES6
-import "react-quill/dist/quill.snow.css"; // ES6
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 function Editor(props) {
   const [currentContent, setCurrentContent] = useState("");
+  const [timer, setTimer] = useState(null);
+
+  const updateNote = (content) => {
+    const title = content.slice(0, 40).replace(/(<([^>]+)>)/gi, "");
+    props.updateNote(props.note, { title: title, body: content });
+  };
+
+  const handleChange = (content, delta, source) => {
+    clearTimeout(timer);
+    if (source == "user") {
+      setCurrentContent(content);
+      setTimer(setTimeout(() => updateNote(content), 2000));
+    }
+  };
 
   useEffect(() => {
     setCurrentContent(props.note.body);
@@ -27,7 +41,11 @@ function Editor(props) {
 
   return (
     <Fragment>
-      <ReactQuill value={currentContent} modules={modules} />
+      <ReactQuill
+        value={currentContent}
+        modules={modules}
+        onChange={handleChange}
+      />
     </Fragment>
   );
 }

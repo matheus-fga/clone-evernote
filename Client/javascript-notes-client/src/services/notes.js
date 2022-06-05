@@ -17,6 +17,10 @@ const NotesService = {
     Api.delete(`/notes/${id}`, {
       headers: { "x-access-token": localStorage.getItem("token") },
     }),
+  update: (id, params) =>
+    Api.put(`/notes/${id}`, params, {
+      headers: { "x-access-token": localStorage.getItem("token") },
+    }),
 };
 
 export default NotesService;

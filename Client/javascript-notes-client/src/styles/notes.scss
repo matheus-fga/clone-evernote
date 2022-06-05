@@ -25,7 +25,12 @@
 .notes-editor {
   padding: 0;
   height: calc(100% - 43px);
+
   .quill {
     height: 100%;
+  }
+
+  .ql-editor {
+    white-space: normal !important;
   }
 }
