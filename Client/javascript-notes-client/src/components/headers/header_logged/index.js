@@ -51,7 +51,7 @@ function HeaderLogged(props) {
               className="open-button"
               color="white"
               outlined
-              onClick={() => props.setIsOpen(true)}
+              onClick={() => props.setIsOpen((prevState) => !prevState)}
             >
               <FontAwesomeIcon icon={faList} />
             </Button>
