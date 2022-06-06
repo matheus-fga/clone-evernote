@@ -1,0 +1,13 @@
+@import "./custom_colors";
+
+.user-edit {
+  background-color: $custom_grey;
+}
+
+.section {
+  padding: 1rem 3rem;
+}
+
+.title:not(:last-child) {
+  margin-bottom: 0.8rem;
+}

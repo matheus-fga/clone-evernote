@@ -46,7 +46,7 @@ function HeaderLogged(props) {
           className="navbar-item navbar-start"
           align="start"
         >
-          <Navbar.Item as="div">
+          <Navbar.Item as="div" hidden={props.isHidden}>
             <Button
               className="open-button"
               color="white"
