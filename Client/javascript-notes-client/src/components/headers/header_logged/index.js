@@ -66,7 +66,7 @@ function HeaderLogged(props) {
             <Dropdown>
               <Dropdown.Trigger>
                 <Button className="button" color="white" outlined>
-                  <span>Matheus ▼</span>
+                  <span>{JSON.parse(user).name} ▼</span>
                 </Button>
               </Dropdown.Trigger>
               <Dropdown.Menu>
