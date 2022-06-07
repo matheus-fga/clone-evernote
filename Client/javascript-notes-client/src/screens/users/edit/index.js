@@ -40,9 +40,6 @@ const UsersEditScreen = () => {
                 </Title>
                 <Card>
                   <Card.Content>
-                    <Title size={6} className="has-text-grey" subtitle>
-                      Attention! This action is irreversible
-                    </Title>
                     <DeleteAccountForm />
                   </Card.Content>
                 </Card>
