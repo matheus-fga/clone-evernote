@@ -8,6 +8,13 @@ const UserService = {
     localStorage.setItem("token", response.data.token);
   },
   logout: () => localStorage.clear(),
+  update: async (params) => {
+    const response = await Api.put("/users", params, {
+      headers: { "x-access-token": localStorage.getItem("token") },
+    });
+    const user = JSON.stringify(response.data);
+    localStorage.setItem("user", user);
+  },
 };
 
 export default UserService;

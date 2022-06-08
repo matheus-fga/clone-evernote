@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Column, Section, Title, Container, Card } from "rbx";
 import HeaderLogged from "../../../components/headers/header_logged";
 import UserInfoForm from "../../../components/forms/user_edit";
@@ -7,6 +7,8 @@ import DeleteAccountForm from "../../../components/forms/delete_account";
 import "../../../styles/user_edit.scss";
 
 const UsersEditScreen = () => {
+  const [user, setUser] = useState(localStorage.getItem("user"));
+
   return (
     <Fragment>
       <HeaderLogged isHidden={true} />
@@ -20,7 +22,7 @@ const UsersEditScreen = () => {
                 </Title>
                 <Card>
                   <Card.Content>
-                    <UserInfoForm />
+                    <UserInfoForm user={user} />
                   </Card.Content>
                 </Card>
               </Section>
