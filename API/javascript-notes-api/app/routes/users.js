@@ -61,8 +61,6 @@ router.put("/", withAuth, async (req, res) => {
 });
 
 router.delete("/", withAuth, async (req, res) => {
-  const { id } = req.params;
-
   try {
     let userToDelete = await User.findById(req.user._id);
     userToDelete.delete();
