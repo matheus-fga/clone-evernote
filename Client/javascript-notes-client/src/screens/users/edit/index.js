@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import { Column, Section, Title, Container, Card } from "rbx";
 import HeaderLogged from "../../../components/headers/header_logged";
 import UserInfoForm from "../../../components/forms/user_edit";
@@ -8,10 +8,11 @@ import "../../../styles/user_edit.scss";
 
 const UsersEditScreen = () => {
   const [user, setUser] = useState(localStorage.getItem("user"));
+  const [key, setKey] = useState("1");
 
   return (
     <Fragment>
-      <HeaderLogged isHidden={true} />
+      <HeaderLogged key={key} isHidden={true} />
       <Section size="small" className="user-edit">
         <Container>
           <Column.Group centered>
@@ -22,7 +23,7 @@ const UsersEditScreen = () => {
                 </Title>
                 <Card>
                   <Card.Content>
-                    <UserInfoForm user={user} />
+                    <UserInfoForm user={user} setKey={setKey} />
                   </Card.Content>
                 </Card>
               </Section>

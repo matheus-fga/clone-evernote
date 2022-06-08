@@ -18,6 +18,7 @@ function UserInfoForm(props) {
       });
       if (previousEmail.current === email) {
         setStatus("success-name");
+        props.setKey(Math.random().toString());
         setTimeout(() => setStatus(""), 5000);
       } else {
         setStatus("success-email");
