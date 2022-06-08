@@ -15,6 +15,10 @@ const UserService = {
     const user = JSON.stringify(response.data);
     localStorage.setItem("user", user);
   },
+  delete: () =>
+    Api.delete("/users", {
+      headers: { "x-access-token": localStorage.getItem("token") },
+    }),
 };
 
 export default UserService;

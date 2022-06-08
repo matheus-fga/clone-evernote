@@ -16,7 +16,9 @@ const AppRoutes = () => (
       <Route exact path="/notes" element={<PrivateRoute />}>
         <Route exact path="/notes" element={<NotesScreen />} />
       </Route>
-      <Route exact path="/users/edit" element={<UsersEditScreen />} />
+      <Route exact path="/users/edit" element={<PrivateRoute />}>
+        <Route exact path="/users/edit" element={<UsersEditScreen />} />
+      </Route>
     </Routes>
   </Router>
 );

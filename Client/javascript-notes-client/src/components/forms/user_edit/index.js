@@ -17,13 +17,16 @@ function UserInfoForm(props) {
         email: email,
       });
       if (previousEmail.current === email) {
-        setStatus("sucess-name");
+        setStatus("success-name");
+        setTimeout(() => setStatus(""), 5000);
       } else {
-        setStatus("sucess-email");
+        setStatus("success-email");
+        localStorage.clear();
         setTimeout(() => setRedirectToLogin(true), 4000);
       }
     } catch (error) {
       setStatus("error");
+      setTimeout(() => setStatus(""), 5000);
     }
   };
 
@@ -79,10 +82,10 @@ function UserInfoForm(props) {
                 {status === "error" && (
                   <Help color="danger">Error updanting information</Help>
                 )}
-                {status === "sucess-name" && (
+                {status === "success-name" && (
                   <Help color="success">Full name successfully updated</Help>
                 )}
-                {status === "sucess-email" && (
+                {status === "success-email" && (
                   <Help color="success">
                     Email successfully updated. Please, login again
                   </Help>
