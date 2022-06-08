@@ -44,20 +44,15 @@ router.put("/password", withAuth, async (req, res) => {
 
   try {
     const user = await User.findById(req.user._id);
-    let isSame = false;
 
-    user.isCorrectPassword(currentPassword, function (error, same) {
-      if (!same) res.status(401).json({ error: "Incorrect current password" });
+    user.isCorrectPassword(currentPassword, async function (error, same) {
+      if (!same) res.status(200).json({ error: "Incorrect current password" });
       else {
-        isSame = same;
+        user.password = newPassword;
+        await user.save();
+        res.status(200).json({ user: user });
       }
     });
-
-    if (isSame) {
-      user.password = newPassword;
-      await user.save();
-      res.status(200).json(user);
-    }
   } catch (error) {
     res.status(500).json({ error: "Error updating user password" });
   }
