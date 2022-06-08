@@ -19,6 +19,16 @@ const UserService = {
     Api.delete("/users", {
       headers: { "x-access-token": localStorage.getItem("token") },
     }),
+  updatePassword: async (params) => {
+    const response = await Api.put("/users/password", params, {
+      headers: { "x-access-token": localStorage.getItem("token") },
+    });
+    if (response.data.user) {
+      const user = JSON.stringify(response.data.user);
+      localStorage.setItem("user", user);
+      return response.data;
+    } else return response.data;
+  },
 };
 
 export default UserService;
