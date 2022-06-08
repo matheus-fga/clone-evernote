@@ -39,6 +39,30 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.put("/password", withAuth, async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+
+  try {
+    const user = await User.findById(req.user._id);
+    let isSame = false;
+
+    user.isCorrectPassword(currentPassword, function (error, same) {
+      if (!same) res.status(401).json({ error: "Incorrect current password" });
+      else {
+        isSame = same;
+      }
+    });
+
+    if (isSame) {
+      user.password = newPassword;
+      await user.save();
+      res.status(200).json(user);
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Error updating user password" });
+  }
+});
+
 router.put("/", withAuth, async (req, res) => {
   const { name, email } = req.body;
 
